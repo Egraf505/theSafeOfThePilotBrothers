@@ -24,5 +24,18 @@ namespace theSafeOfThePilotBrothers
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            if (btn.Style == (Style)this.Resources["HorisontalBtn"])
+            {
+                btn.Style = (Style)this.Resources["VerticalBtn"];
+                return;
+            }
+
+            btn.Style = (Style)this.Resources["HorisontalBtn"];
+        }
     }
 }

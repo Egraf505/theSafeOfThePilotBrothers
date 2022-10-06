@@ -5,8 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:theSafeOfThePilotBrothers"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Сейф братьев пилотов" Height="450" Width="800">
 
+    <Window.Resources>
+        <Style x:Key="HorisontalBtn" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style x:Key="VerticalBtn" TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!--Верхнеее меню-->
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Row="0">
+            <TextBlock Text="Размер игры"/>
+            <TextBox x:Name="InputN" 
+                     MinWidth="40" MaxWidth="250"                     
+                     />
+            <Button x:Name="StartTheGameBtn"
+                    Content="Старт"/>
+            <Button x:Name="RestartGameBtn"
+                    Content="Рестарт"/>
+        </StackPanel> 
+        
+        <!--Сама игра-->
+
+        <Grid x:Name="GameGrid" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource HorisontalBtn}" Click="Button_Click"/>
+                <Button Style="{StaticResource VerticalBtn}" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Window>
