@@ -20,6 +20,8 @@ namespace theSafeOfThePilotBrothers
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Safe _safe;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +38,50 @@ namespace theSafeOfThePilotBrothers
             }
 
             btn.Style = (Style)this.Resources["HorisontalBtn"];
+        }
+
+        private async void StartTheGameBtn_Click(object sender, RoutedEventArgs e)
+        {         
+
+            if (int.TryParse(InputN.Text,out int result))
+            {
+                _safe = new Safe(result);
+
+                await ShowTheSafe();
+            }
+            else
+            {
+                MessageBox.Show("Введите число");
+            }
+        }
+
+        private async Task ShowTheSafe()
+        {
+            GameGrid.Children.Clear();
+            GameGrid.ColumnDefinitions.Clear();
+            GameGrid.RowDefinitions.Clear();
+            for (int i = 0; i < _safe.Lenght; i++)
+            {
+                GameGrid.RowDefinitions.Add(new RowDefinition());
+                for (int j = 0; j < _safe.Lenght; j++)
+                {
+                    GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                    Button button = new Button();
+                    if (_safe.Array[i, j] == 0)
+                        button.Style = (Style)this.Resources["HorisontalBtn"];
+                    else
+                        button.Style = (Style)this.Resources["VerticalBtn"];
+
+                    button.Click += Button_Click;
+
+                    Grid.SetRow(button,i);
+                    Grid.SetColumn(button, j);
+
+                    GameGrid.Children.Add(button);
+                }
+            }
+
+            await Task.CompletedTask;
         }
     }
 }

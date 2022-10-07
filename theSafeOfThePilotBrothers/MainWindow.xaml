@@ -13,7 +13,8 @@
             <Setter Property="Background" Value="Black"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Width" Value="15"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
         </Style>
 
         <Style x:Key="VerticalBtn" TargetType="{x:Type Button}">
@@ -21,7 +22,8 @@
             <Setter Property="Background" Value="Black"/>
             <Setter Property="Height" Value="15"/>
             <Setter Property="Width" Value="40"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
         </Style>
     </Window.Resources>
     
@@ -41,18 +43,14 @@
                      MinWidth="40" MaxWidth="250"                     
                      />
             <Button x:Name="StartTheGameBtn"
-                    Content="Старт"/>
+                    Content="Старт" Click="StartTheGameBtn_Click"/>
             <Button x:Name="RestartGameBtn"
                     Content="Рестарт"/>
         </StackPanel> 
         
         <!--Сама игра-->
 
-        <Grid x:Name="GameGrid" Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource HorisontalBtn}" Click="Button_Click"/>
-                <Button Style="{StaticResource VerticalBtn}" Click="Button_Click"/>
-            </StackPanel>
+        <Grid x:Name="GameGrid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch">
         </Grid>
         
     </Grid>
