@@ -38,6 +38,8 @@ namespace theSafeOfThePilotBrothers
             }
 
             btn.Style = (Style)this.Resources["HorisontalBtn"];
+
+            _safe.ClickOnelement(int.Parse(btn.Tag.ToString()[0].ToString()), int.Parse(btn.Tag.ToString()[1].ToString()));
         }
 
         private async void StartTheGameBtn_Click(object sender, RoutedEventArgs e)
@@ -67,6 +69,7 @@ namespace theSafeOfThePilotBrothers
                 {
                     GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
                     Button button = new Button();
+                    button.Tag = $"{i}{j}";
                     if (_safe.Array[i, j] == 0)
                         button.Style = (Style)this.Resources["HorisontalBtn"];
                     else

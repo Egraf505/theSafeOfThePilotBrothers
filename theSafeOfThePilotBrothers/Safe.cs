@@ -54,10 +54,16 @@ namespace theSafeOfThePilotBrothers
                 ChangeValue(i, indexJ);
             }
 
-            // По горизонтали
+            // По горизонтали после числа
             for (int j = indexJ; j < _array.Length-1; j++)
             {
                 ChangeValue(indexI, j);
+            }
+
+            // По горизонтали перед числом
+            for (int j = indexJ - 1; j >= 0; j--)
+            {
+                ChangeValue(indexI,j);
             }
         }
 
