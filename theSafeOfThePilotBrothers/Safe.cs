@@ -16,7 +16,7 @@ namespace theSafeOfThePilotBrothers
         public int Length { get { return _n; } }
 
         public event ChangeButtonEvent ChangeButton;
-        public delegate void ChangeButtonEvent(Button button);
+        public delegate void ChangeButtonEvent(int i, int j);
 
 
         public Safe(int n, ChangeButtonEvent changeButtonEvent)
@@ -79,11 +79,11 @@ namespace theSafeOfThePilotBrothers
             if (_array[indexI, indexJ].Num == 0)
             {
                 _array[indexI, indexJ].Num = 1;
-                ChangeButton.Invoke(button);
+                ChangeButton.Invoke(indexI, indexJ);
                 return;
             }
             _array[indexI, indexJ].Num = 0;
-            ChangeButton.Invoke(button);
+            ChangeButton.Invoke(indexI, indexJ);
         }
 
         public bool CheckArray()

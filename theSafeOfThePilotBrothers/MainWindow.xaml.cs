@@ -89,15 +89,17 @@ namespace theSafeOfThePilotBrothers
             await Task.CompletedTask;
         }
 
-        private void ChangeButton(Button btn)
+        private void ChangeButton(int i, int j)
         {
-            if (btn.Style == (Style)this.Resources["HorisontalBtn"])
+            if (_safe.Array[i,j].Num == 0)
             {
-                btn.Style = (Style)this.Resources["VerticalBtn"];
-                return;
+                _safe.Array[i, j].Button.Style = (Style)this.Resources["HorisontalBtn"];              
             }
-
-            btn.Style = (Style)this.Resources["HorisontalBtn"];
+            else 
+            {
+                _safe.Array[i, j].Button.Style = (Style)this.Resources["VerticalBtn"];
+            }
+            
         }    
     }
 }
