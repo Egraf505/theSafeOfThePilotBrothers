@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace theSafeOfThePilotBrothers
 {
     public class Safe
     {
-        int[,] _array;
-        public int[,] Array { get { return _array; } }
+        Clasp[,] _array;
+        public Clasp[,] Array { get { return _array; } }
         private int _n;
         public int Lenght { get { return _n; } }
+        public event ChangeButtonEvent ChangeButton;
+        public delegate void ChangeButtonEvent(Button button);
 
 
-        public Safe(int n)
+        public Safe(int n, ChangeButtonEvent changeButtonEvent)
         {
             _array = GetArray(n);
             _n = n;
+            ChangeButton += changeButtonEvent;
         }
 
-        private int[,] GetArray(int n)
+        private Clasp[,] GetArray(int n)
         {
-            int[,] sbytes = new int[n,n];
+            Clasp[,] clasps = new Clasp[n,n];
 
             Random rnd = new Random();
 
@@ -30,51 +34,53 @@ namespace theSafeOfThePilotBrothers
             {
                 for (int j = 0; j < n-1; j++)
                 {
-                    sbytes[i, j] = rnd.Next(0, 2);
+                    clasps[i, j] = new Clasp(rnd.Next(0, 2), new Button());
                 }
             }
 
-            return sbytes;
+            return clasps;
         }
 
-        public void ClickOnelement(int indexI, int indexJ)
+        public void ClickOnelement(int indexI, int indexJ, Button button)
         {
             // Само число
-            ChangeValue(indexI, indexJ);
+            ChangeValue(indexI, indexJ, button);
+
 
             // По вертикали после числа
             for (int i = indexI; i < _array.Length-1; i++)
             {
-                ChangeValue(i, indexJ);
+                ChangeValue(i, indexJ, button);
             }
 
             // По вертикали после числа
             for (int i = indexI - 1; i >= 0; i--)
             {
-                ChangeValue(i, indexJ);
+                ChangeValue(i, indexJ, button);
             }
 
             // По горизонтали после числа
             for (int j = indexJ; j < _array.Length-1; j++)
             {
-                ChangeValue(indexI, j);
+                ChangeValue(indexI, j, button);
             }
 
             // По горизонтали перед числом
             for (int j = indexJ - 1; j >= 0; j--)
             {
-                ChangeValue(indexI,j);
+                ChangeValue(indexI,j, button);
             }
         }
 
-        public void ChangeValue(int indexI, int indexJ)
+        public void ChangeValue(int indexI, int indexJ, Button button)
         {
-            if (_array[indexI, indexJ] == 0)
+            if (_array[indexI, indexJ].Num == 0)
             {
-                _array[indexI, indexJ] = 1;
+                _array[indexI, indexJ].Num = 1;
                 return;
             }
-            _array[indexI, indexJ] = 0;
+            _array[indexI, indexJ].Num = 0;
+            ChangeButton.Invoke(button);
         }
     }
 }

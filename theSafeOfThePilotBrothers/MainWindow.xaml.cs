@@ -39,7 +39,10 @@ namespace theSafeOfThePilotBrothers
 
             btn.Style = (Style)this.Resources["HorisontalBtn"];
 
-            _safe.ClickOnelement(int.Parse(btn.Tag.ToString()[0].ToString()), int.Parse(btn.Tag.ToString()[1].ToString()));
+            int i = int.Parse(btn.Tag.ToString()[0].ToString());
+            int j = int.Parse(btn.Tag.ToString()[1].ToString());
+
+            _safe.ClickOnelement(i, j, _safe.Array[i,j].Button);
         }
 
         private async void StartTheGameBtn_Click(object sender, RoutedEventArgs e)
@@ -47,7 +50,7 @@ namespace theSafeOfThePilotBrothers
 
             if (int.TryParse(InputN.Text,out int result))
             {
-                _safe = new Safe(result);
+                _safe = new Safe(result, ChangeButton);
 
                 await ShowTheSafe();
             }
@@ -68,14 +71,14 @@ namespace theSafeOfThePilotBrothers
                 for (int j = 0; j < _safe.Lenght; j++)
                 {
                     GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                    Button button = new Button();
+                    Button button = _safe.Array[i, j].Button;
                     button.Tag = $"{i}{j}";
-                    if (_safe.Array[i, j] == 0)
+                    if (_safe.Array[i, j].Num == 0)
                         button.Style = (Style)this.Resources["HorisontalBtn"];
                     else
                         button.Style = (Style)this.Resources["VerticalBtn"];
 
-                    button.Click += Button_Click;
+                    button.Click += Button_Click;                    
 
                     Grid.SetRow(button,i);
                     Grid.SetColumn(button, j);
@@ -85,6 +88,17 @@ namespace theSafeOfThePilotBrothers
             }
 
             await Task.CompletedTask;
+        }
+
+        private void ChangeButton(Button btn)
+        {
+            if (btn.Style == (Style)this.Resources["HorisontalBtn"])
+            {
+                btn.Style = (Style)this.Resources["VerticalBtn"];
+                return;
+            }
+
+            btn.Style = (Style)this.Resources["HorisontalBtn"];
         }
     }
 }
