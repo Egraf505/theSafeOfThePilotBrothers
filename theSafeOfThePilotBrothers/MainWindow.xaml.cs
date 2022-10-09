@@ -28,21 +28,20 @@ namespace theSafeOfThePilotBrothers
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        {           
+
             Button btn = (Button)sender;
-
-            if (btn.Style == (Style)this.Resources["HorisontalBtn"])
-            {
-                btn.Style = (Style)this.Resources["VerticalBtn"];
-                return;
-            }
-
-            btn.Style = (Style)this.Resources["HorisontalBtn"];
 
             int i = int.Parse(btn.Tag.ToString()[0].ToString());
             int j = int.Parse(btn.Tag.ToString()[1].ToString());
 
-            _safe.ClickOnelement(i, j, _safe.Array[i,j].Button);
+            _safe.ClickOnelement(i, j);
+
+            if (_safe.CheckArray())
+            {
+                MessageBox.Show("Вы выйграли");
+
+            }
         }
 
         private async void StartTheGameBtn_Click(object sender, RoutedEventArgs e)
@@ -65,10 +64,10 @@ namespace theSafeOfThePilotBrothers
             GameGrid.Children.Clear();
             GameGrid.ColumnDefinitions.Clear();
             GameGrid.RowDefinitions.Clear();
-            for (int i = 0; i < _safe.Lenght; i++)
+            for (int i = 0; i < _safe.Length; i++)
             {
                 GameGrid.RowDefinitions.Add(new RowDefinition());
-                for (int j = 0; j < _safe.Lenght; j++)
+                for (int j = 0; j < _safe.Length; j++)
                 {
                     GameGrid.ColumnDefinitions.Add(new ColumnDefinition());
                     Button button = _safe.Array[i, j].Button;
@@ -99,6 +98,6 @@ namespace theSafeOfThePilotBrothers
             }
 
             btn.Style = (Style)this.Resources["HorisontalBtn"];
-        }
+        }    
     }
 }

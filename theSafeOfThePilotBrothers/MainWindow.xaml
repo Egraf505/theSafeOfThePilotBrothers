@@ -45,7 +45,7 @@
             <Button x:Name="StartTheGameBtn"
                     Content="Старт" Click="StartTheGameBtn_Click"/>
             <Button x:Name="RestartGameBtn"
-                    Content="Рестарт"/>
+                    Content="Рестарт" Click="StartTheGameBtn_Click"/>
         </StackPanel> 
         
         <!--Сама игра-->

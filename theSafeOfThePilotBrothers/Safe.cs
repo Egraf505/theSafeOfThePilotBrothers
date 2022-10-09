@@ -11,8 +11,10 @@ namespace theSafeOfThePilotBrothers
     {
         Clasp[,] _array;
         public Clasp[,] Array { get { return _array; } }
+
         private int _n;
-        public int Lenght { get { return _n; } }
+        public int Length { get { return _n; } }
+
         public event ChangeButtonEvent ChangeButton;
         public delegate void ChangeButtonEvent(Button button);
 
@@ -30,9 +32,9 @@ namespace theSafeOfThePilotBrothers
 
             Random rnd = new Random();
 
-            for (int i = 0; i < n-1; i++)
+            for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < n-1; j++)
+                for (int j = 0; j < n; j++)
                 {
                     clasps[i, j] = new Clasp(rnd.Next(0, 2), new Button());
                 }
@@ -41,34 +43,34 @@ namespace theSafeOfThePilotBrothers
             return clasps;
         }
 
-        public void ClickOnelement(int indexI, int indexJ, Button button)
+        public void ClickOnelement(int indexI, int indexJ)
         {
             // Само число
-            ChangeValue(indexI, indexJ, button);
+            ChangeValue(indexI, indexJ, _array[indexI,indexJ].Button);
 
 
             // По вертикали после числа
-            for (int i = indexI; i < _array.Length-1; i++)
+            for (int i = indexI; i < Length; i++)
             {
-                ChangeValue(i, indexJ, button);
+                ChangeValue(i, indexJ, _array[i, indexJ].Button);
             }
 
             // По вертикали после числа
             for (int i = indexI - 1; i >= 0; i--)
             {
-                ChangeValue(i, indexJ, button);
+                ChangeValue(i, indexJ, _array[i, indexJ].Button);
             }
 
             // По горизонтали после числа
-            for (int j = indexJ; j < _array.Length-1; j++)
+            for (int j = indexJ; j < Length; j++)
             {
-                ChangeValue(indexI, j, button);
+                ChangeValue(indexI, j, _array[indexI, j].Button);
             }
 
             // По горизонтали перед числом
             for (int j = indexJ - 1; j >= 0; j--)
             {
-                ChangeValue(indexI,j, button);
+                ChangeValue(indexI,j, _array[indexI, j].Button);
             }
         }
 
@@ -77,10 +79,50 @@ namespace theSafeOfThePilotBrothers
             if (_array[indexI, indexJ].Num == 0)
             {
                 _array[indexI, indexJ].Num = 1;
+                ChangeButton.Invoke(button);
                 return;
             }
             _array[indexI, indexJ].Num = 0;
             ChangeButton.Invoke(button);
+        }
+
+        public bool CheckArray()
+        {
+            bool result = false;
+
+            for (int i = 0; i < Length; i++)
+            {
+                for (int j = 0; j < Length; j++)
+                {
+                    if (_array[i,j].Num == 0)
+                    {                       
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < Length; i++)
+            {
+                for (int j = 0; j < Length; j++)
+                {
+                    if (_array[i, j].Num == 1)
+                    {                        
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }
