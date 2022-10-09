@@ -87,42 +87,23 @@ namespace theSafeOfThePilotBrothers
         }
 
         public bool CheckArray()
-        {
-            bool result = false;
+        {         
+            int countArray = 0;
 
             for (int i = 0; i < Length; i++)
             {
                 for (int j = 0; j < Length; j++)
                 {
-                    if (_array[i,j].Num == 0)
-                    {                       
-                        result = true;
-                    }
-                    else
-                    {
-                        result = false;
-                        break;
-                    }
+                    countArray += _array[i, j].Num;
                 }
             }
 
-            for (int i = 0; i < Length; i++)
+            if (countArray == 0 || countArray == (_array.Length * _array.Length))
             {
-                for (int j = 0; j < Length; j++)
-                {
-                    if (_array[i, j].Num == 1)
-                    {                        
-                        result = true;
-                    }
-                    else
-                    {
-                        result = false;
-                        break;
-                    }
-                }
+                return true;
             }
 
-            return result;
+            return false;
         }
     }
 }
